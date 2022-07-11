@@ -9,6 +9,13 @@
         name: '*'
         state: latest
         exclude: kernel*,foo*
-      register: yum_output
+      async: 1000
+      poll: 0
+      register: yum_sleeper
 
-    - debug: var=yum_output
+    - name: 'YUM - check on async task'
+      async_status:
+        jid: "{{ yum_sleeper.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
