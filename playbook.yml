@@ -9,3 +9,6 @@
         name: '*'
         state: latest
         exclude: kernel*,foo*
+      register: yum_output
+
+    - debug: var=yum_output
