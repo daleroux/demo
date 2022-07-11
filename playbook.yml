@@ -1,0 +1,11 @@
+---
+- name: Update packages on RHEL system
+  hosts: all
+
+  tasks:
+
+    - name: perform yum update
+      ansible.builtin.yum:
+        name: '*'
+        state: latest
+        exclude: kernel*,foo*
